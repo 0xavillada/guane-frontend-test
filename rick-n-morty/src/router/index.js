@@ -6,6 +6,7 @@ import Personaje from '../views/Personaje.vue'
 Vue.use(VueRouter)
 
 const routes = [
+  
   {
     path: '/',
     name: 'HomepageDefault',

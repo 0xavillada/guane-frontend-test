@@ -11,8 +11,8 @@ export default new Vuex.Store({
     totalPages : 0,
     characters: []
   },
-  mutations: {
 
+  mutations: {
     saveCharacters( state, data ) {
       
       state.totalCharacters = data.info.count;
@@ -20,16 +20,21 @@ export default new Vuex.Store({
       state.characters = data.results;
     }
   },
+
   actions: {
 
-    getAllCharacters( context ){
-      
-      axios.get('https://rickandmortyapi.com/api/character/')
+    // This method gets info and 20 characters (or less) from API for page given
+    getPageCharacters( context, page ){
+
+      axios.get('https://rickandmortyapi.com/api/character/?page=' + page)
       .then( function( response ){
         context.commit('saveCharacters', response.data);
+      }).catch( err => {
+        console.log(' > ERROR: Number page not found!');
       })
     }
   },
+
   getters: {
     getCharacters( state ){
       return state.characters;

@@ -3,6 +3,7 @@
     <h1> Numero de pagina {{ $route.params.page }}</h1>
     <h3> total de paginas {{ $store.getters.getTotalPages }} </h3>
     <h3> total de personajes {{ $store.getters.getTotalCharacters }} </h3>
+    <h3> Personajes {{ $store.getters.getCharacters }}</h3>
   </div>
 </template>
 
@@ -10,22 +11,45 @@
 export default {
   
   name: 'listaPersonajes',
-  
-  beforeMount() {
 
-    this.$store.dispatch('getAllCharacters')
-
-    if (isNaN(this.$route.params.page)) {
-      
-      // condicion que nos dice si es una ruta sin parametro o con numero de pagina invalido
-      
-      console.log('no es un numero')
-      this.$router.push('page=1');
+  data(){
+    return{
+      /* This data will help us for recognize if we will show the first 10 characters or 
+        the second 10 characters from the 20 that API returns us.
+      */
+      firstMiddle: true
     }
+  },
 
-    // aqui se hará todo el calculo de las paginas para mapear pagina de 10 a pagina de 20 items
+  methods:{
 
+    showList(){
+      
+      let actualPage = parseInt(this.$route.params.page);
 
+      /* This is a little control for always start on page 1.
+        It is redirecting if url parameter "page" are null or < than 1
+      */
+      if (actualPage < 1 || isNaN(actualPage)) {
+        this.$router.push('page=1');
+      }
+    
+      // We will have double of pages than the API and this code section map our page to API page
+      let pageInAPI = actualPage/2;
+
+      // This desition help us to know if we will show the first 10 characters of 20 obtained
+      if (actualPage%2 === 0) {          
+        this.firstMiddle = false
+      }
+
+      // It rounds for above for correct mapping
+      this.$store.dispatch('getPageCharacters', Math.ceil(pageInAPI));
+    }
+  },
+
+  // I chose this execution state only for performace
+  beforeMount() {
+    this.showList();
   }
 }
 </script>
