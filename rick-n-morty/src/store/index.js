@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     totalCharacters: 0,
     totalPages : 0,
-    characters: []
+    characters: [],
+    characterOnDisplay: {}
   },
 
   mutations: {
@@ -18,6 +19,10 @@ export default new Vuex.Store({
       state.totalCharacters = data.info.count;
       state.totalPages = data.info.pages;
       state.characters = data.results;
+    },
+    saveDisplayedCharater( state, character ){
+
+      state.characterOnDisplay = character;
     }
   },
 
@@ -32,6 +37,18 @@ export default new Vuex.Store({
       }).catch( err => {
         console.log(' > ERROR: Number page not found!');
       })
+    },
+
+    // This method gets character info for "characterId" specified
+    getCharacter( context, characterId ){
+      
+      axios.get('https://rickandmortyapi.com/api/character/' + characterId)
+      .then( function( response ){
+        context.commit('saveDisplayedCharater', response.data);
+      })
+      .catch( err => {
+        console.log(' > ERROR: Character id not found!');
+      })
     }
   },
 
@@ -44,6 +61,9 @@ export default new Vuex.Store({
     },
     getTotalPages( state ){
       return state.totalPages;
+    },
+    getCharacterOnDisplay ( state ) {
+      return state.characterOnDisplay;
     }
   }
 })
