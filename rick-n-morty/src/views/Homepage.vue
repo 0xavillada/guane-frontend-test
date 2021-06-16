@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+      <img alt="Vue logo" src="../assets/ricknmorty2.gif">
     <listaPersonajes/>
   </div>
 </template>
@@ -16,3 +16,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  
+  img{    
+    margin-bottom: 50px;
+    width:40%;
+    height:auto;
+  }
+
+</style>

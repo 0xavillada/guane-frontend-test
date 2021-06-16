@@ -1,9 +1,56 @@
 <template>
-  <div class="hello">
-    <h1> Numero de pagina {{ $route.params.page }}</h1>
-    <h3> total de paginas {{ $store.getters.getTotalPages }} </h3>
-    <h3> total de personajes {{ $store.getters.getTotalCharacters }} </h3>
-    <h3> Personajes {{ $store.getters.getCharacters }}</h3>
+  <div class="list">
+    <section class="cardList flex">
+
+      <div v-if="firstMiddle">
+        
+        <b-card v-for="(character, index) in $store.getters.getCharacters.slice(0,10)" :key="index"
+        img-top class="overflow-hidden" style="display: inline-block;margin: 10px 20px;">
+          <a :href="$route.path +'/id='+character.id" class="reference">
+            <div>
+              <div class="imageTitle">
+                <b-card-img :src=character.image alt="Image"></b-card-img>
+                <div class="characterName">
+                  <h3>{{character.name}}</h3>
+                </div>
+              </div>
+              <b-card-body class="body-card">
+                <b-card-text>
+                  <h5> Species: {{character.species}}</h5>
+                  <h5> Status: {{character.status}}</h5>
+                </b-card-text>
+              </b-card-body>
+            </div>
+          </a>      
+        </b-card>
+
+      </div>
+
+      <div v-else>
+        
+        <b-card v-for="(character, index) in $store.getters.getCharacters.slice(10,20)" :key="index"
+        img-top class="overflow-hidden" style="display: inline-block;margin: 10px 20px;">
+          <a href="" class="reference">
+            <div>
+              <div class="imageTitle">
+                <b-card-img :src=character.image alt="Image"></b-card-img>
+                <div class="characterName">
+                  <h3>{{character.name}}</h3>
+                </div>
+              </div>
+              <b-card-body class="body-card">
+                <b-card-text>
+                  <h5> Species: {{character.species}}</h5>
+                  <h5> Status: {{character.status}}</h5>
+                </b-card-text>
+              </b-card-body>
+            </div>
+          </a>      
+        </b-card>
+
+      </div>
+
+    </section>
   </div>
 </template>
 
@@ -56,9 +103,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-h3 {
-  margin: 40px 0 0;
-}
+
 ul {
   list-style-type: none;
   padding: 0;
@@ -67,7 +112,78 @@ li {
   display: inline-block;
   margin: 0 10px;
 }
-a {
-  color: #42b983;
+a{
+  text-decoration: none;
+  color: #000;
 }
+a:hover {
+  color: #000;
+}
+
+.cardList{
+  width: 80%;
+  margin: 0 auto;
+  padding: 0px 100px;
+  align-content: center;
+}
+
+.card{
+  background-color: rgba(192, 186, 186, 0.719);
+  border: 1px solid rgb(44, 43, 43);
+  margin: 15px auto;
+  border-radius: 20px;
+  box-shadow: 0 0 10px 7px rgba(255, 47, 245, 0.5);
+  width: 40%;
+  box-sizing: border-box;
+}
+
+.card:hover{
+  box-shadow: 0 0 20px 15px rgba(255, 47, 245, 0.5);
+}
+
+.flex{
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.body-card{
+  padding: 10px;
+  margin-top: 10px;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 7px rgba(0, 0, 0, 0.5);
+
+  background-image: url(../assets/garage.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  background-attachment: fixed;
+}
+
+.characterName{
+  position: absolute;
+  top: 88%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  width: 90%;
+  height: 60px;
+  border-radius: 10px;
+  //box-shadow: inset 0 0 10px 7px rgba(107, 106, 106, 0.603);
+  background: rgba(255, 254, 254, 0.63);
+}
+
+.imageTitle{
+  position: relative;
+  text-align: center;
+}
+
+@media (max-width: 700px){
+  .card{
+    width: 100%;
+  }
+  .cardList{
+    padding: 0px 70px;;
+  }
+}
+
 </style>
