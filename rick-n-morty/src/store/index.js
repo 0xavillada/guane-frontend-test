@@ -29,9 +29,9 @@ export default new Vuex.Store({
   actions: {
 
     // This method gets info and 20 characters (or less) from API for page given
-    getPageCharacters( context, page ){
+    async getPageCharacters( context, page ){
 
-      axios.get('https://rickandmortyapi.com/api/character/?page=' + page)
+      await axios.get('https://rickandmortyapi.com/api/character/?page=' + page)
       .then( function( response ){
         context.commit('saveCharacters', response.data);
       }).catch( err => {
@@ -40,9 +40,9 @@ export default new Vuex.Store({
     },
 
     // This method gets character info for "characterId" specified
-    getCharacter( context, characterId ){
+    async getCharacter( context, characterId ){
       
-      axios.get('https://rickandmortyapi.com/api/character/' + characterId)
+      await axios.get('https://rickandmortyapi.com/api/character/' + characterId)
       .then( function( response ){
         context.commit('saveDisplayedCharater', response.data);
       })

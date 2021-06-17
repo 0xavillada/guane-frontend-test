@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <img alt="Vue logo" src="./assets/ricknmorty2.gif">
     <router-view/>
   </div>
 </template>
@@ -10,8 +11,14 @@ body {
   margin: 0;
 }
 
+img{    
+  margin-bottom: 50px;
+  width:40%;
+  height:auto;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: "Comic Sans MS", "Comic Sans", cursive;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -36,5 +43,6 @@ body {
     }
   }
 }
+
 
 </style>
