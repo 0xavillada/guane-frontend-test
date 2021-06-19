@@ -1,20 +1,36 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/ricknmorty2.gif">
-    <router-view/>
+    <img alt="Vue logo" src="./assets/ricknmorty2.gif" />
+    <router-view />
+    <footer style="width: 100%; margin-left: 0px">
+      <div class="copyright">
+        <div class="container-fluid">
+          © Copyright: Andres Felipe Villada Montoya - 2021
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
 <style lang="scss">
+footer {
+  bottom: 0;
+  width: 100%;
+  margin-top: 10px;
+}
 
 body {
   margin: 0;
 }
 
-img{    
+img {
   margin-bottom: 50px;
-  width:40%;
-  height:auto;
+  width: 40%;
+  height: auto;
+}
+
+.copyright {
+  background-color: rgba(128, 128, 128, 0.747);
 }
 
 #app {
@@ -43,6 +59,4 @@ img{
     }
   }
 }
-
-
 </style>

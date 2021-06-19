@@ -7,8 +7,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    totalCharacters: 0,
-    totalPages : 0,
+    totalCharacters: 671,
+    totalPages : 34,
     characters: [],
     characterOnDisplay: {}
   },

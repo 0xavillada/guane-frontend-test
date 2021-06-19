@@ -1,85 +1,124 @@
 <template>
-  
   <div>
+    <b-button
+      class="go-back-btn"
+      :href="'/page/' + $route.params.page"
+      variant="outline-dark"
+      >Characters list</b-button
+    >
+    <section class="character-card flex">
+      <b-card
+        img-top
+        class="overflow-hidden"
+        style="display: inline-block; margin: 10px 20px"
+      >
+        <b-card-img
+          class="character-img"
+          :src="$store.getters.getCharacterOnDisplay.image"
+          alt="Image"
+        ></b-card-img>
 
-    <b-button class="gobackBtn" :href="'/page='+$route.params.page" variant="outline-dark">Characters list</b-button>
-
-    <section class="characterCard flex">    
-
-      <b-card img-top class="overflow-hidden" style="display: inline-block;margin: 10px 20px;">
-        
-        <b-card-img class="charImage" :src=$store.getters.getCharacterOnDisplay.image alt="Image"></b-card-img>
-            
-        <b-card-body class="body-card">
+        <b-card-body class="character-info">
+          <div class="character-name">
+            <h1>{{ $store.getters.getCharacterOnDisplay.name }}</h1>
+          </div>
           <b-card-text>
-
-            <div class="imageTitle">
-              <div class="characterName">
-                <h3>{{$store.getters.getCharacterOnDisplay.name}}</h3>
-              </div>
+            <div class="character-data">
+              <h5>
+                Character id:
+                <b>{{ $store.getters.getCharacterOnDisplay.id }}</b>
+              </h5>
+              <h5>
+                Status: <b>{{ $store.getters.getCharacterOnDisplay.status }}</b>
+              </h5>
+              <h5>
+                Species:
+                <b>{{ $store.getters.getCharacterOnDisplay.species }}</b>
+              </h5>
+              <h5>
+                Species type:
+                <b>{{ $store.getters.getCharacterOnDisplay.type }}</b>
+              </h5>
+              <h5>
+                Gender: <b>{{ $store.getters.getCharacterOnDisplay.gender }}</b>
+              </h5>
+              <!-- These two data can be rendering when the object is not existing -->
+              <h5>
+                Character origin:
+                <b>{{
+                  $store.getters.getCharacterOnDisplay.origin &&
+                  $store.getters.getCharacterOnDisplay.origin.name
+                }}</b>
+              </h5>
+              <h5>
+                Actual location:
+                <b>{{
+                  $store.getters.getCharacterOnDisplay.location &&
+                  $store.getters.getCharacterOnDisplay.location.name
+                }}</b>
+              </h5>
+              <h5>
+                <h5>Episodes:</h5>
+                <b
+                  v-for="(episode, index) in $store.getters
+                    .getCharacterOnDisplay.episode"
+                  :key="index"
+                  >{{ episode.split("/").pop() + ".  " }}</b
+                >
+              </h5>
             </div>
-
-            <h3>{{$store.getters.getCharacterOnDisplay.id}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.name}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.status}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.species}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.type}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.gender}}</h3>
-            <!-- These two data can be rendering when the object is not existing -->
-            <h3>{{$store.getters.getCharacterOnDisplay.origin && $store.getters.getCharacterOnDisplay.origin.name}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.location && $store.getters.getCharacterOnDisplay.location.name}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.image}}</h3>
-            <h3>{{$store.getters.getCharacterOnDisplay.episode}}</h3>
           </b-card-text>
         </b-card-body>
-        
       </b-card>
-
     </section>
   </div>
-  
-    
 </template>
 
 <script>
+export default {
+  name: "personaje",
 
-  export default {
-    name: 'personaje',
-
-    mounted(){
-      // Load all information about character with id at URL parameter
-      this.$store.dispatch('getCharacter', this.$route.params.idPersonaje);
-    }
-  }
+  mounted() {
+    // Load all information about character with id at URL parameter
+    this.$store.dispatch("getCharacter", this.$route.params.idPersonaje);
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
-h3{
+h3 {
   color: #000;
 }
 
-.charImage{
+.character-data {
+  margin-top: 3%;
+  color: #92c5cc;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px #01343a, 0 0 4em #68cf52, 0 0 0.4em #68cf52;
+}
 
-  width: 50%;
+.character-img {
+  width: 30%;
   height: auto;
   border-radius: 25px;
   box-shadow: 0 0 10px 7px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0px;
+  margin-top: 2%;
 }
 
-.characterCard{
+.character-card {
   width: 80%;
   margin: 0 auto;
   //padding: 0px 0px;
   align-content: center;
 }
 
-.card{
+.card {
   background-color: rgba(192, 186, 186, 0.719);
   border: 1px solid rgb(44, 43, 43);
   margin: 15px auto;
   border-radius: 20px;
-  box-shadow: 0 0 20px 15px rgb(255, 35, 185);
+  box-shadow: 0 0 10px 8px rgb(255, 35, 185);
   width: 80%;
   box-sizing: border-box;
 
@@ -90,55 +129,44 @@ h3{
   background-attachment: fixed;
 }
 
-.flex{
+.flex {
   flex-wrap: wrap;
 }
 
-.body-card{
-  padding: 10px;
-  margin-top: 10px;
-  border-radius: 10px;
-  box-shadow: inset 0 0 10px 7px rgba(0, 0, 0, 0.5);
-
-}
-
-.characterName{
-  //position: absolute;
-  //top: 100%;
-  //left: 50%;
-  //transform: translate(-50%, -50%);
-  text-align: center;
-  align-content: center;
+.character-name {
   width: 100%;
-  height: 60px;
-  border-radius: 10px;
-  //box-shadow: inset 0 0 10px 7px rgba(107, 106, 106, 0.603);
-  background: rgba(255, 254, 254, 0.466);
-  box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.5);
-}
-
-.imageTitle{
-  //position: relative;  
+  padding: 5px;
+  background-color: rgba(192, 186, 186, 0.719);
+  border-radius: 20px;
   text-align: center;
+  color: #00b0c8;
+  font-weight: bold;
+  -webkit-text-stroke: 2px #01343a;
+  text-shadow: 1px 1px 1px #01343a, 0 0 4em #2fff00, 0 0 0.4em #2fff00;
 }
 
-.gobackBtn{
+.go-back-btn {
   margin-bottom: 40px;
-  color: springgreen;
-  border: 1px solid springgreen;
+  color: #00ff80;
+  border: 1px solid #00ff80;
 }
 
-.gobackBtn:hover{
-  background-color: springgreen;
+.go-back-btn:hover {
+  background-color: #00ff80;
 }
 
-@media (max-width: 700px){
-  .card{
+.character-info {
+  margin-top: 2%;
+  background-color: #01343a79;
+  border-radius: 20px;
+}
+
+@media (max-width: 700px) {
+  .card {
     width: 100%;
   }
-  .characterCard{
-    padding: 0px 70px;;
+  .character-card {
+    padding: 0px 70px;
   }
 }
-
 </style>
